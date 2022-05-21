@@ -55,7 +55,18 @@ async function run() {
                 return res.send({success: true, result})
             
         })
+        
+        // Patient Booked Service 
 
+        app.get('/booking', async(req, res)=>{
+            const patient = req.query.patient;
+
+            const query = {patient: patient}
+            const result = await bookingCollection.find(query).toArray()
+            res.send(result)
+        })
+        
+        // Available Services
         app.get('/available', async (req, res)=>{
             const date = req.query.date;
 
