@@ -23,9 +23,15 @@ async function run() {
 
     try {
         await client.connect()
+        // Service Collection
         const serviceCollection = client.db("doctor_portal").collection("service")
 
+        // Booking Colection
         const bookingCollection = client.db("doctor_portal").collection("booking")
+
+        //User Collection
+        const userCollection = client.db("doctor_portal").collection("user")
+
 
         app.get('/service', async (req, res) => {
             const quote = {}
@@ -63,6 +69,13 @@ async function run() {
 
             const query = {patient: patient}
             const result = await bookingCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        // Get All User
+
+        app.get('/user', async(req,res)=>{
+            const result = await userCollection.find().toArray()
             res.send(result)
         })
         
